@@ -108,7 +108,7 @@ const PaginaConcretaProducto = () => {
             console.log(articulo);
             const response1 = await axios.get(`https://front-elrastro.vercel.app/huellaC/huellaCarbonoCostoCamion/${puja.comprador}/${articulo._id}`);
                 console.log(response1);
-            if (response1.data !== null) {
+            if (response1.data !== null && response1.data !== undefined && response1.data !== '') {
                 const { data } = response1;
                 const response2 = await axios.get(`https://front-elrastro.vercel.app/huellaC/getPrecio/${data}`);
                 
@@ -124,6 +124,10 @@ const PaginaConcretaProducto = () => {
                         setCalculandoPrecio(false);
                     }
                 }
+            }else{
+                setCalculandoPrecio(false);
+                setPrecioCalculado(parseInt(puja.precio, 10));
+
             }
         } catch (error) {
             console.error('Error al obt ener datos del backend:', error);
